@@ -53,6 +53,7 @@ const BookPage = () => {
         {book && <BookListing book={book} />}
       </>
       <button onClick={() => navigate("/")}>Back</button>
+      <button onClick={() => navigate(`/edit-book/${book._id}`)}>Edit</button>
       <button onClick={() => onDeleteClick(book._id)}>Delete</button>
     </div> 
   );
