@@ -7,6 +7,8 @@ import Navbar from "./components/Navbar";
 import NotFoundPage from "./pages/NotFoundPage";
 import BookPage from "./pages/BookPage";
 import EditBook from "./pages/EditBookPage";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 
 const App = () => {
   return (
@@ -20,6 +22,8 @@ const App = () => {
             <Route path="*" element={<NotFoundPage />} />
             <Route path="/books/:id" element={<BookPage />} />
             <Route path="/edit-book/:id" element={<EditBook />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
           </Routes>
         </div>
       </BrowserRouter>
