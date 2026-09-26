@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 
-const Login = () => {
+const Login = ({setIsAuthenticated}) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
@@ -26,6 +26,7 @@ const Login = () => {
         return;
     }
     localStorage.setItem("user", JSON.stringify(user))
+    setIsAuthenticated(true);
     console.log("yay")
     navigate("/")
     }

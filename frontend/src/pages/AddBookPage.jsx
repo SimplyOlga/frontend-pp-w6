@@ -11,13 +11,19 @@ const [isAvailable, setIsAvailable] = useState("true");
 const [dueDate, setDueDate] = useState("");
 const [borrower, setBorrower] = useState("");
 const navigate = useNavigate();
-  
+const user = JSON.parse(localStorage.getItem("user"));
+const token = user ? user.token : null;
+
+
+
 
   const addBook = async (book) => {
     try {
       const res = await fetch ('/api/books', {
         method: 'POST',
-        headers: {"Content-Type": "application/json"},
+        headers: {"Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify(book),
       })
       if (!res.ok) throw new Error("Failed.");

@@ -12,6 +12,10 @@ const [dueDate, setDueDate] = useState("");
 const [borrower, setBorrower] = useState("");
 const { id } = useParams("");
 const navigate = useNavigate();
+
+const user = JSON.parse(localStorage.getItem("user"));
+const token = user ? user.token : null;
+
 useEffect(() => {
   const fetchBook = async () => {
     const res = await fetch(`/api/books/${id}`);
@@ -37,7 +41,9 @@ const updateBook = async (newBook) => {
   try {
     const res = await fetch(`/api/books/${id}`, {
       method: "PUT",
-      headers: {"Content-Type": "application/json"},
+      headers: {"Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
       body: JSON.stringify(newBook),
     });
     if (!res.ok) throw new Error("No.")  

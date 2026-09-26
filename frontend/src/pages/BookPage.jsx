@@ -5,17 +5,25 @@ import BookListing from "../components/BookListing";
 import { useParams } from "react-router-dom";
 
 
-const BookPage = () => {
+const BookPage = ({isAuthenticated }) => {
   const [ book, setBook ] = useState();
   const navigate = useNavigate();
   const { id } = useParams();
+const user = JSON.parse(localStorage.getItem("user"));
+const token = user ? user.token : null;
+
 
   const deleteBook = async(bookId) => {
     try {
       const res = await fetch(`/api/books/${bookId}`,
-        {method: "DELETE"}
+        {method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          }
+        }
       );
       if (!res.ok) throw new Error("Failed")
+        navigate("/")
     }
   catch(error) {
     console.error("Error deleting book:", error)
@@ -53,8 +61,16 @@ const BookPage = () => {
         {book && <BookListing book={book} />}
       </>
       <button onClick={() => navigate("/")}>Back</button>
+
+      {
+        isAuthenticated && (
+          <div>
       <button onClick={() => navigate(`/edit-book/${book._id}`)}>Edit</button>
       <button onClick={() => onDeleteClick(book._id)}>Delete</button>
+          </div>
+        )
+      }
+
     </div> 
   );
 };
